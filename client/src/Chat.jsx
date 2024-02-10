@@ -38,7 +38,7 @@ const Chat = ({ socket, userName, room }) => {
   }, [socket]);
 
   return (
-    <div className="h-4/6 w-1/4 border rounded-md bg-cyan-100 flex flex-col relative">
+    <div className="h-4/6 sm:h-5/6 lg:h-4/6 max-w-xs sm:max-w-sm w-[512px] border rounded-md bg-cyan-100 flex flex-col relative">
       {/* Chat Header */}
       <div className="w-full h-16 bg-cyan-200 text-slate-50 text-4xl font-bold text-center flex items-center px-5">
         Chat Header
@@ -50,28 +50,36 @@ const Chat = ({ socket, userName, room }) => {
             return (
               <div
                 key={item.id}
-                className="max-w-4/5 w-fit h-auto min-h-10 relative my-4"
+                className={`w-auto h-auto min-h-12 flex items-center mx-2 my-2 px-2 py-2 ${
+                  userName === item.author ? "justify-end" : "justify-start"
+                } `}
               >
-                <div
-                  className={`border border-2 border-red-400 flex w-11/12 min-h-10 text-slate-50 text-base font-light rounded-md mx-2 my-2 py-1 px-3 flex ${
-                    userName === item.author
-                      ? "bg-cyan-400 justify-center"
-                      : "bg-emerald-400 justify-end"
-                  } `}
-                >
+                <div>
                   {/* message */}
                   <div
-                  // className={`w-11/12 min-h-10 text-slate-50 text-base font-light rounded-md mx-2 my-2 py-1 px-3 flex ${
-                  //   userName === item.author
-                  //     ? "bg-cyan-400 justify-center"
-                  //     : "bg-emerald-400 justify-end"
-                  // } `}
+                    className={`w-auto h-auto flex items-center text-base font-medium ${
+                      userName === item.author
+                        ? "justify-end ml-5"
+                        : "justify-start mr-5"
+                    } `}
                   >
-                    <p>{item.message}</p>
+                    <p
+                      className={`w-auto h-auto min-h-10 px-2 py-2 rounded-lg text-slate-50 ${
+                        userName === item.author
+                          ? "bg-cyan-400"
+                          : "bg-emerald-400"
+                      } `}
+                    >
+                      {item.message}
+                    </p>
                   </div>
                   {/* message details */}
-                  <div className="w-max absolute bottom-[-8px] left-2 text-xs font-thin flex">
-                    <p className="mx-1">{item.time}</p>
+                  <div
+                    className={`flex gap-1 text-md font-light text-gray-400 ${
+                      userName === item.author ? "ml-5" : "mr-5"
+                    }`}
+                  >
+                    <p>{item.time}</p>
                     <p>{item.author}</p>
                   </div>
                 </div>
@@ -92,7 +100,7 @@ const Chat = ({ socket, userName, room }) => {
         <div className="w-1/6 h-12 rounded-full bg-slate-50 flex justify-center items-center mx-2 my-auto">
           <IoMdSend
             onClick={sendMessage}
-            className=" text-cyan-500 w-4/6 h-4/6 cursor-pointer"
+            className=" text-cyan-500 w-4/6 h-4/6 hover:text-cyan-400 cursor-pointer"
           />
         </div>
       </div>
