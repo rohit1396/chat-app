@@ -4,7 +4,12 @@ const app = express();
 const http = require("http");
 const cors = require("cors");
 const { Server } = require("socket.io");
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://chat-app-rg.vercel.app/"],
+    methods: ["GET", "POST"],
+  })
+);
 
 const port = process.env.PORT;
 
